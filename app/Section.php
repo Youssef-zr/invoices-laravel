@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Invoice extends Model
+class Section extends Model
 {
     protected $guarded = [];
-    protected $table = 'invoices';
+    protected $table = 'sections';
 }

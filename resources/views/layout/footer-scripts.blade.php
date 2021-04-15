@@ -28,6 +28,24 @@
 @yield('js')
 <!-- Sticky js -->
 <script src="{{URL::asset('assets/js/sticky.js')}}"></script>
+
+<!-- External Data tables -->
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#example1').DataTable({
+            direction: "rtl",
+            "order": [[ 0, 'desc' ]],
+            "aLengthMenu": [
+                [5, 10, 25, -1],
+                [5, 10, 25, "All"]
+            ],
+            "oLanguage": {"sUrl": "{{ url('js/datatables_ar.json') }}"}
+        });
+    });
+</script>
+<!--External  Datepicker js -->
+
 <!-- custom js -->
 <script src="{{URL::asset('assets/js/custom.js')}}"></script><!-- Left-menu js-->
 <script src="{{URL::asset('assets/plugins/side-menu/sidemenu.js')}}"></script>

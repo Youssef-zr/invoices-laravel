@@ -1,8 +1,8 @@
 <!-- Title -->
 <title> 
-    فواتير
+    برنامج الفواتير
     @if (isset($title))
-        |
+        -
         {{ $title }}
     @endif
 </title>
@@ -23,3 +23,27 @@
 <link href="{{URL::asset('assets/css-rtl/style-dark.css')}}" rel="stylesheet">
 <!---Skinmodes css-->
 <link href="{{URL::asset('assets/css-rtl/skin-modes.css')}}" rel="stylesheet">
+
+{{-- noty plugin --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script> 
+
+{{-- datatables style --}}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+
+<style>
+	div.dataTables_wrapper {
+        direction: rtl;
+    }
+ 
+    /* Ensure that the demo table scrolls */
+    th, td { white-space: nowrap; }
+    div.dataTables_wrapper {
+        width: 95%;
+        margin: 0 auto;
+    }
+</style>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet"> 
+{{-- Custom style --}}
+<link rel="stylesheet" href="{{ url::asset('css/style.css') }}">

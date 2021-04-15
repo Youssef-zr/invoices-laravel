@@ -1,0 +1,11 @@
+
+.has-error .help-block strong {
+    display: block;
+    margin-top: 5px;
+    color:#d63031;
+    font-size: 11px;
+}
+
+.has-error .form-control {
+    border-color: #d63031;
+}

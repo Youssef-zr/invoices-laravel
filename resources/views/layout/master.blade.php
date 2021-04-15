@@ -28,5 +28,8 @@
 				@include('layout.models')
             	@include('layout.footer')
 				@include('layout.footer-scripts')	
+
+				
+				@include('_partial._messages')
 	</body>
 </html>
