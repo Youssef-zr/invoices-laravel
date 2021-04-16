@@ -9,3 +9,23 @@
 .has-error .form-control {
     border-color: #d63031;
 }
+
+.dataTables_wrapper .dataTables_filter input{
+    margin-right: 10px;
+}
+
+.dataTables_wrapper .dataTables_length .select2-container--default{
+    margin:0 6px !important;
+    width:65px   !important  
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+    background:#0162e8 !important;
+    color:#fff !important;
+    border-radius: 5px;
+    border-color:#0162e8;
+}
+
+.fa-1x{
+    font-size: 18px !important;
+}

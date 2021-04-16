@@ -29,7 +29,7 @@
             	@include('layout.footer')
 				@include('layout.footer-scripts')	
 
-				
+				{{-- Noty Flash Messages --}}
 				@include('_partial._messages')
 	</body>
 </html>

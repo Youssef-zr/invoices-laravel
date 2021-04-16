@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class SectionController extends Controller
 {
@@ -38,9 +39,10 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
+
        $rules =[
-           'section_name'=>'required|string|max:100',
-           'note'=>'required|string|max:100'
+           'section_name'=>'required|string|unique:sections,section_name|max:255',
+           'note'=>'nullable|string'
        ];
 
        $niceNames  =[
@@ -91,7 +93,27 @@ class SectionController extends Controller
      */
     public function update(Request $request, Section $section)
     {
-        //
+        
+        $rules =[
+            'section_name'=>'required|string|max:255|unique:sections,section_name,'.$section->id,
+            'note'=>'nullable|string',
+        ];
+        
+        $niceNames  =[
+            'section_name'=>'اسم القسم',
+            'note'=>'الملاحظات'
+        ];
+
+        // used this session to show edit section modal
+        $request->session()->flash('edit', 'edit');
+        
+        $data = $this->validate($request,$rules,[],$niceNames);
+        
+        $section->fill($data)->save();
+ 
+        $request->session()->flash('msgSuccess', 'تم تعديل القسم بنجاح');
+        
+        return redirect()->back();
     }
 
     /**

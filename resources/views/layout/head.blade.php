@@ -31,6 +31,12 @@
 {{-- datatables style --}}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 
+{{-- select2 --}}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+{{-- font awesome 4.7 --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
 <style>
 	div.dataTables_wrapper {
         direction: rtl;
@@ -43,7 +49,10 @@
         margin: 0 auto;
     }
 </style>
+
+{{-- fonts --}}
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet"> 
+
 {{-- Custom style --}}
 <link rel="stylesheet" href="{{ url::asset('css/style.css') }}">
