@@ -24,6 +24,7 @@ Route::group(["prefix" => "admin", 'middleware' => "auth"], function () {
         return view('admin/index');
     });
     Route::resource('sections', 'SectionController');
+    Route::resource('products', 'ProductController');
 });
 
 Route::get('/logout', function () {

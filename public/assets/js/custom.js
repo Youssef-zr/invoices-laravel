@@ -394,35 +394,6 @@ $(function () {
 
 	// $('body').addClass(' body-style1'); //
 
-	// edit section
-	$('.edit-section').on('click', function () {
-		// form 
-		let form = $('#modaldemo81').find('form');
-		form.attr('action', $(this).data('url'));
 
-		// fill inputs
-		form.find('input[name="id"]').val($(this).data('id'));
-		form.find('input[name="url"]').val($(this).data('url'));
-		form.find('input[name="section_name"]').val($(this).data('section_name'));
-		form.find('textarea[name="note"]').text($(this).data('description'));
-	});
-
-	// reset form add 
-	function resetForm($btn_open_modal, $modal) {
-		$($btn_open_modal).on('click', function () {
-			let form = $($modal).find('form');
-
-			// hide errors
-			form.find('.form-group').removeClass('has-error');
-			form.find('.form-group').find('.help-block').hide();
-
-			// reset inputs
-			form.find('input').val('');
-			form.find('textarea').text('');
-		})
-	}
-
-	// add section click reset errors and fields
-	resetForm('.add-section', '#modaldemo8');
 
 });

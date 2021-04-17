@@ -5,7 +5,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الاعدادات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ الأقسام</span>
+                <h4 class="content-title mb-0 my-auto">الاعدادات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ المنتجات</span>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
-									<a class="modal-effect btn btn-primary py-1 px-2 add-section" data-effect="effect-scale" data-toggle="modal" href="#modalAdd"><i class="fa fa-plus-circle"></i> اضافة قسم</a>
+									<a class="modal-effect btn btn-primary py-1 px-2 add-section" data-effect="effect-scale" data-toggle="modal" href="#modalAdd"><i class="fa fa-plus-circle"></i> اضافة منتج</a>
 								</div>
 							</div>
 							<div class="card-body">
@@ -29,46 +29,57 @@
 										<thead>
 											<tr>
 												<th class="wd-15p border-bottom-0">#</th>
-												<th class="wd-15p border-bottom-0">اسم القسم</th>
+												<th class="wd-15p border-bottom-0">اسم المنتج</th>
+												<th class="wd-15p border-bottom-0">القسم</th>
 												<th class="wd-15p border-bottom-0">ملاحظات</th>
 												<th class="wd-20p border-bottom-0">العمليات</th>
 											</tr>
 										</thead>
 										<tbody>
                                             @php $i=1; @endphp
-                                            
-                                            @foreach ($sections as $section)
+
+                                            @foreach ($products as $product)
                                                 <tr>
-                                                    <td>{{ $i}}</td>
-                                                    <td>{{ $section->section_name }}</td>
+                                                    <td>{{$i}}</td>
+                                                    <td>{{$product->product_name}}</td>
                                                     <td>
-                                                        @if ($section->note=='')
+                                                        @if (isset($product->section->section_name))
+                                                            <label class="badge bg-danger text-white">{{$product->section->section_name}}</label>
+                                                        @else
+                                                            <label class="badge bg-secondary text-white">لا يوجد أي قسم</label>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($product->note=='')
                                                             <small class="text-secondary">لا يوجد أي ملاحظات</small>
                                                         @else
-                                                            {{$section->note}}
+                                                            {{$product->note}}
                                                         @endif
                                                     </td>
                                                     <td>
                                                         <div class="btn-group">
                                                             {{-- btn edit section --}}
-                                                            <a class="modal-effect btn btn-warning btn-sm edit-section" data-effect="effect-scale"
+                                                            <a class="modal-effect btn btn-warning btn-sm edit-product" data-effect="effect-scale"
                                                                 data-toggle="modal" href="#modalEdit" data-status="edit" 
-                                                                data-id="{{ $section->id }}" data-section_name="{{ $section->section_name }}" data-description="{{ $section->note }}"
-                                                                data-url='{{url('/admin/sections/'.$section->id)}}'
+                                                                data-id="{{ $product->id }}" data-product_name="{{ $product->product_name }}"
+                                                                data-description="{{ $product->note }}" data-section_id="{{ $product->section_id }}"
+                                                                data-url='{{url('/admin/products/'.$product->id)}}'
                                                                 >
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
                                                             {{-- btn delete section --}}
                                                             <a class="modal-effect btn btn-danger btn-sm delete-section" data-effect="effect-scale" data-toggle="modal" href="#modalDelete"
-                                                               data-id="{{ $section->id }}" data-url='{{url('/admin/sections/'.$section->id)}}'
+                                                               data-id="{{ $product->id }}" data-url='{{url('/admin/products/'.$product->id)}}'
                                                                >
                                                                <i class="fa fa-trash"></i>
                                                             </a>
                                                         </div>
                                                     </td>
                                                 </tr>
+
                                                 @php $i++; @endphp
                                             @endforeach
+                                         
 										</tbody>
 									</table>
 								</div>
@@ -81,29 +92,41 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content modal-content-demo">
                                 <div class="modal-header bg-info">
-                                    <h6 class="modal-title text-white">اضافة قسم</h6><button aria-label="Close" class="close text-white" data-dismiss="modal" type="button"><span aria-hidden="true"><i class="fa fa-times-circle"></i></span></button>
+                                    <h6 class="modal-title text-white">اضافة منتج</h6><button aria-label="Close" class="close text-white" data-dismiss="modal" type="button"><span aria-hidden="true"><i class="fa fa-times-circle"></i></span></button>
                                 </div>
-                                {!! Form::open(['route' => 'sections.store','autocomplete'=>'off']) !!}
+                                {!! Form::open(['route' => 'products.store','autocomplete'=>'off']) !!}
                                 @method('post')
                                 <div class="modal-body">
-                                   
-                                    {{-- section_name field --}}
-                                    <div class="form-group {{$errors->has('section_name') ? 'has-error' : ''}}">
-                                        {!! Form::label('section_name', 'اسم القسم :', ['class'=>'form-label']) !!}
-                                        {!! Form::text('section_name', old('section_name'), ['class'=>'form-control',"placeholder"=>"اسم القسم"]) !!}
+
+                                    {{-- product_name field --}}
+                                    <div class="form-group {{$errors->has('product_name') ? 'has-error' : ''}}">
+                                        {!! Form::label('product_name', 'اسم المنتج :', ['class'=>'form-label']) !!}
+                                        {!! Form::text('product_name', old('product_name'), ['class'=>'form-control',"placeholder"=>"اسم المنتج"]) !!}
                             
-                                        @if ($errors->has('section_name'))
+                                        @if ($errors->has('product_name'))
                                         <span class="help-block">
-                                            <strong>{{$errors->first('section_name')}}</strong>
+                                            <strong>{{$errors->first('product_name')}}</strong>
                                         </span>
                                         @endif
                                     </div>
 
+                                    {{-- section_name field --}}
+                                    <div class="form-group {{$errors->has('section_id') ? 'has-error' : ''}}">
+                                        {!! Form::label('section_id', 'القسم :', ['class'=>'form-label']) !!}
+                                        {!! Form::select('section_id', $sections , null , ['class'=>'form-control d-block','placeholder'=>'قسم المنتج']) !!}
+
+                                        @if ($errors->has('section_id'))
+                                        <span class="help-block">
+                                            <strong>{{$errors->first('section_id')}}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    
                                     {{-- note field --}}
                                     <div class="form-group {{$errors->has('note') ? 'has-error' : ''}}">
                                         {!! Form::label('note', 'ملاحظات :', ['class'=>'form-label']) !!}
                                         {!! Form::textarea('note', old('note'), ['class'=>'form-control',"placeholder"=>"ملاحظات",'rows'=>'3']) !!}
-
+                                        
                                         @if ($errors->has('note'))
                                         <span class="help-block">
                                             <strong>{{$errors->first('note')}}</strong>
@@ -128,32 +151,43 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content modal-content-demo">
                                 <div class="modal-header bg-success">
-                                    <h6 class="modal-title text-white">تعديل قسم</h6><button aria-label="Close" class="close text-white" data-dismiss="modal" type="button"><span aria-hidden="true"><i class="fa fa-times-circle"></i></span></button>
+                                    <h6 class="modal-title text-white">تعديل القسم</h6><button aria-label="Close" class="close text-white" data-dismiss="modal" type="button"><span aria-hidden="true"><i class="fa fa-times-circle"></i></span></button>
                                 </div>
                                 {!! Form::open(['autocomplete'=>'off']) !!}
                                 @method('PATCH')
                                 <div class="modal-body">
-                                    {{-- field id for update --}}
-                                    {!! Form::hidden('id', old('id')) !!}
+                                    {{-- hidden input form url --}}
                                     {!! Form::hidden('url', old('url')) !!}
 
-                                    {{-- section_name field --}}
-                                    <div class="form-group {{$errors->has('section_name') ? 'has-error' : ''}}">
-                                        {!! Form::label('section_name', 'اسم القسم :', ['class'=>'form-label']) !!}
-                                        {!! Form::text('section_name', old('section_name'), ['class'=>'form-control',"placeholder"=>"اسم القسم"]) !!}
+                                    {{-- product_name field --}}
+                                    <div class="form-group {{$errors->has('product_name') ? 'has-error' : ''}}">
+                                        {!! Form::label('product_name', 'اسم المنتج :', ['class'=>'form-label']) !!}
+                                        {!! Form::text('product_name', old('product_name'), ['class'=>'form-control',"placeholder"=>"اسم المنتج"]) !!}
                             
-                                        @if ($errors->has('section_name'))
+                                        @if ($errors->has('product_name'))
                                         <span class="help-block">
-                                            <strong>{{$errors->first('section_name')}}</strong>
+                                            <strong>{{$errors->first('product_name')}}</strong>
                                         </span>
                                         @endif
                                     </div>
 
+                                    {{-- section_name field --}}
+                                    <div class="form-group {{$errors->has('section_id') ? 'has-error' : ''}}">
+                                        {!! Form::label('section_id', 'القسم :', ['class'=>'form-label']) !!}
+                                        {!! Form::select('section_id', $sections , null , ['class'=>'form-control d-block','placeholder'=>'قسم المنتج']) !!}
+
+                                        @if ($errors->has('section_id'))
+                                        <span class="help-block">
+                                            <strong>{{$errors->first('section_id')}}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    
                                     {{-- note field --}}
                                     <div class="form-group {{$errors->has('note') ? 'has-error' : ''}}">
                                         {!! Form::label('note', 'ملاحظات :', ['class'=>'form-label']) !!}
                                         {!! Form::textarea('note', old('note'), ['class'=>'form-control',"placeholder"=>"ملاحظات",'rows'=>'3']) !!}
-
+                                        
                                         @if ($errors->has('note'))
                                         <span class="help-block">
                                             <strong>{{$errors->first('note')}}</strong>
@@ -178,7 +212,7 @@
                         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                             <div class="modal-content modal-content-demo">
                                 <div class="modal-header bg-danger">
-                                    <h6 class="modal-title text-white">حذف قسم</h6><button aria-label="Close" class="close text-white" data-dismiss="modal" type="button"><span aria-hidden="true"><i class="fa fa-times-circle"></i></span></button>
+                                    <h6 class="modal-title text-white">حذف المنتج</h6><button aria-label="Close" class="close text-white" data-dismiss="modal" type="button"><span aria-hidden="true"><i class="fa fa-times-circle"></i></span></button>
                                 </div>
                                 {!! Form::open() !!}
                                 @method('Delete')
@@ -246,17 +280,19 @@
 <script>
     $(()=>{
         // edit section
-        $('.edit-section').on('click', function () {
+        $('.edit-product').on('click', function () {
             // reset form edit errors
             resetForm('#modalEdit');
             // form 
             let form = $('#modalEdit').find('form');
             form.attr('action', $(this).data('url'));
 
+            console.log($(this));
             // fill inputs
             form.find('input[name="id"]').val($(this).data('id'));
             form.find('input[name="url"]').val($(this).data('url'));
-            form.find('input[name="section_name"]').val($(this).data('section_name'));
+            form.find('input[name="product_name"]').val($(this).data('product_name'));
+            form.find('select[name="section_id"]').val($(this).data('section_id'));
             form.find('textarea[name="note"]').text($(this).data('description'));
         });
 
@@ -270,6 +306,7 @@
 
             // reset inputs
             form.find('.form-group input').val('');
+            form.find('.form-group select').val('');
             form.find('.form-group textarea').text('');
         };
 
@@ -286,5 +323,12 @@
         });
     })
 </script>
+@endsection
 
+@section('css')
+    <style>
+        .select2{
+            width: 100% !important
+        }
+    </style>
 @endsection

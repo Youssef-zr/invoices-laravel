@@ -25,7 +25,7 @@
 <script src="{{URL::asset('assets/plugins/sidebar/sidebar-custom.js')}}"></script>
 <!-- Eva-icons js -->
 <script src="{{URL::asset('assets/js/eva-icons.min.js')}}"></script>
-@yield('js')
+
 <!-- Sticky js -->
 <script src="{{URL::asset('assets/js/sticky.js')}}"></script>
 
@@ -48,13 +48,8 @@
 <!-- Internal Select2 js-->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<script>
-    $(()=>{
-        setTimeout(() => {
-            $('select').select2();
-        }, 1000);
-    })
-</script>
 <!-- custom js -->
 <script src="{{URL::asset('assets/plugins/side-menu/sidemenu.js')}}"></script>
 <script src="{{URL::asset('assets/js/custom.js')}}"></script><!-- Left-menu js-->
+
+@yield('js')
