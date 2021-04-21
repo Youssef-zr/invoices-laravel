@@ -57,23 +57,23 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <div class="btn-group">
-                                                            {{-- btn edit section --}}
-                                                            <a class="modal-effect btn btn-warning btn-sm edit-product" data-effect="effect-scale"
-                                                                data-toggle="modal" href="#modalEdit" data-status="edit" 
-                                                                data-id="{{ $product->id }}" data-product_name="{{ $product->product_name }}"
-                                                                data-description="{{ $product->note }}" data-section_id="{{ $product->section_id }}"
-                                                                data-url='{{url('/admin/products/'.$product->id)}}'
-                                                                >
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                            {{-- btn delete section --}}
-                                                            <a class="modal-effect btn btn-danger btn-sm delete-section" data-effect="effect-scale" data-toggle="modal" href="#modalDelete"
-                                                               data-id="{{ $product->id }}" data-url='{{url('/admin/products/'.$product->id)}}'
-                                                               >
-                                                               <i class="fa fa-trash"></i>
-                                                            </a>
-                                                        </div>
+                                                        {{-- btn edit section --}}
+                                                        <a class="modal-effect btn btn-outline-success btn-sm edit-product" data-effect="effect-scale"
+                                                            data-toggle="modal" href="#modalEdit" data-status="edit" 
+                                                            data-id="{{ $product->id }}" data-product_name="{{ $product->product_name }}"
+                                                            data-description="{{ $product->note }}" data-section_id="{{ $product->section_id }}"
+                                                            data-url='{{url('/admin/products/'.$product->id)}}'
+                                                            >
+                                                            <i class="fa fa-edit"></i>
+                                                            تعديل
+                                                        </a>
+                                                        {{-- btn delete section --}}
+                                                        <a class="modal-effect btn btn-outline-danger btn-sm delete-section" data-effect="effect-scale" data-toggle="modal" href="#modalDelete"
+                                                            data-id="{{ $product->id }}" data-url='{{url('/admin/products/'.$product->id)}}'
+                                                            >
+                                                            <i class="fa fa-trash"></i>
+                                                            حذف
+                                                        </a>
                                                     </td>
                                                 </tr>
 
@@ -113,7 +113,10 @@
                                     {{-- section_name field --}}
                                     <div class="form-group {{$errors->has('section_id') ? 'has-error' : ''}}">
                                         {!! Form::label('section_id', 'القسم :', ['class'=>'form-label']) !!}
-                                        {!! Form::select('section_id', $sections , null , ['class'=>'form-control d-block','placeholder'=>'قسم المنتج']) !!}
+                                        {{-- {!! Form::select('section_id', $sections , null , ['class'=>'form-select d-block','placeholder'=>'قسم المنتج']) !!} --}}
+                                        <select name="section_id" class="select2">
+                                            <option selected="selected" value="">قسم المنتج</option><option value="1">القسم الأول</option><option value="2">القسم الثاني</option>
+                                        </select>
 
                                         @if ($errors->has('section_id'))
                                         <span class="help-block">
@@ -256,6 +259,7 @@
 <script src="{{URL::asset('assets/js/modal.js')}}"></script>
 <!-- Internal Modal js-->
 
+
 @if ($errors->any())
 
     @if (session()->has('edit'))
@@ -279,6 +283,7 @@
 
 <script>
     $(()=>{
+
         // edit section
         $('.edit-product').on('click', function () {
             // reset form edit errors
@@ -321,6 +326,10 @@
             form.attr('action', $(this).data('url'));
             console.log(form.attr('action'));
         });
+
+        // select2 plugin
+        $('.select2').select2();
+        
     })
 </script>
 @endsection

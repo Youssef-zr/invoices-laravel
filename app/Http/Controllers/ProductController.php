@@ -104,6 +104,7 @@ class ProductController extends Controller
             'note' => "الملاحظات",
         ];
 
+        // use this session to show the form of edit in blade if has errors
         $request->session()->flash('edit', 'edit');
         
         $data = $this->validate($request, $rules, [], $niceNames);

@@ -29,3 +29,8 @@
 .fa-1x{
     font-size: 18px !important;
 }
+
+
+.select2-dropdown {
+    z-index:99999;
+}

@@ -1,4 +1,4 @@
-$(function() {
+$(document).on('ready',function() {
 	'use strict'
 	// showing modal with effect
 	$('.modal-effect').on('click', function(e) {
@@ -13,12 +13,9 @@ $(function() {
 		});
 	});
 
+	$('.select2-show-search').select2({
+	 minimumResultsForSearch: '',
+	 placeholder: "Search",
+	 width: '100%'
+   });
 });
-
-	$(document).ready(function() {
-		$('.select2-show-search').select2({
-		 minimumResultsForSearch: '',
-		 placeholder: "Search",
-		 width: '100%'
-	   });
-	});

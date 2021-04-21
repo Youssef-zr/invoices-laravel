@@ -49,22 +49,22 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <div class="btn-group">
-                                                            {{-- btn edit section --}}
-                                                            <a class="modal-effect btn btn-warning btn-sm edit-section" data-effect="effect-scale"
-                                                                data-toggle="modal" href="#modalEdit" data-status="edit" 
-                                                                data-id="{{ $section->id }}" data-section_name="{{ $section->section_name }}" data-description="{{ $section->note }}"
-                                                                data-url='{{url('/admin/sections/'.$section->id)}}'
-                                                                >
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                            {{-- btn delete section --}}
-                                                            <a class="modal-effect btn btn-danger btn-sm delete-section" data-effect="effect-scale" data-toggle="modal" href="#modalDelete"
-                                                               data-id="{{ $section->id }}" data-url='{{url('/admin/sections/'.$section->id)}}'
-                                                               >
-                                                               <i class="fa fa-trash"></i>
-                                                            </a>
-                                                        </div>
+                                                        {{-- btn edit section --}}
+                                                        <a class="modal-effect btn btn-outline-success btn-sm edit-section" data-effect="effect-scale"
+                                                            data-toggle="modal" href="#modalEdit" data-status="edit" 
+                                                            data-id="{{ $section->id }}" data-section_name="{{ $section->section_name }}" data-description="{{ $section->note }}"
+                                                            data-url='{{url('/admin/sections/'.$section->id)}}'
+                                                            >
+                                                            <i class="fa fa-edit"></i>
+                                                            تعديل
+                                                        </a>
+                                                        {{-- btn delete section --}}
+                                                        <a class="modal-effect btn btn-outline-danger btn-sm delete-section" data-effect="effect-scale" data-toggle="modal" href="#modalDelete"
+                                                            data-id="{{ $section->id }}" data-url='{{url('/admin/sections/'.$section->id)}}'
+                                                            >
+                                                            <i class="fa fa-trash"></i>
+                                                            حذف 
+                                                        </a>
                                                     </td>
                                                 </tr>
                                                 @php $i++; @endphp
@@ -245,6 +245,7 @@
 
 <script>
     $(()=>{
+        
         // edit section
         $('.edit-section').on('click', function () {
             // reset form edit errors
