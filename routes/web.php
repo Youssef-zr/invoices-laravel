@@ -1,7 +1,7 @@
 <?php
 
+use App\Section;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +25,15 @@ Route::group(["prefix" => "admin", 'middleware' => "auth"], function () {
     });
     Route::resource('sections', 'SectionController');
     Route::resource('products', 'ProductController');
+
+    Route::resource('invoices', "InvoiceController");
+    Route::get('section/{id}', function ($id) {
+        $section = Section::find($id);
+
+        $products = $section->products()->pluck('product_name','id')->toArray();
+
+        return response()->json(['status' => 'ok', 'products' => $products]);
+    });
 });
 
 Route::get('/logout', function () {

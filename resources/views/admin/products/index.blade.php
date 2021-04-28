@@ -62,6 +62,7 @@
                                                             data-toggle="modal" href="#modalEdit" data-status="edit" 
                                                             data-id="{{ $product->id }}" data-product_name="{{ $product->product_name }}"
                                                             data-description="{{ $product->note }}" data-section_id="{{ $product->section_id }}"
+                                                            data-section_name="{{ $product->section->section_name }}"
                                                             data-url='{{url('/admin/products/'.$product->id)}}'
                                                             >
                                                             <i class="fa fa-edit"></i>
@@ -113,10 +114,7 @@
                                     {{-- section_name field --}}
                                     <div class="form-group {{$errors->has('section_id') ? 'has-error' : ''}}">
                                         {!! Form::label('section_id', 'القسم :', ['class'=>'form-label']) !!}
-                                        {{-- {!! Form::select('section_id', $sections , null , ['class'=>'form-select d-block','placeholder'=>'قسم المنتج']) !!} --}}
-                                        <select name="section_id" class="select2">
-                                            <option selected="selected" value="">قسم المنتج</option><option value="1">القسم الأول</option><option value="2">القسم الثاني</option>
-                                        </select>
+                                        {!! Form::select('section_id', $sections , null , ['class'=>'form-select d-block select2','placeholder'=>'قسم المنتج']) !!}
 
                                         @if ($errors->has('section_id'))
                                         <span class="help-block">
@@ -177,7 +175,7 @@
                                     {{-- section_name field --}}
                                     <div class="form-group {{$errors->has('section_id') ? 'has-error' : ''}}">
                                         {!! Form::label('section_id', 'القسم :', ['class'=>'form-label']) !!}
-                                        {!! Form::select('section_id', $sections , null , ['class'=>'form-control d-block','placeholder'=>'قسم المنتج']) !!}
+                                        {!! Form::select('section_id', $sections , null , ['class'=>'form-control d-block select2','placeholder'=>'قسم المنتج']) !!}
 
                                         @if ($errors->has('section_id'))
                                         <span class="help-block">
@@ -288,16 +286,34 @@
         $('.edit-product').on('click', function () {
             // reset form edit errors
             resetForm('#modalEdit');
+
             // form 
             let form = $('#modalEdit').find('form');
             form.attr('action', $(this).data('url'));
 
-            console.log($(this));
             // fill inputs
             form.find('input[name="id"]').val($(this).data('id'));
             form.find('input[name="url"]').val($(this).data('url'));
             form.find('input[name="product_name"]').val($(this).data('product_name'));
             form.find('select[name="section_id"]').val($(this).data('section_id'));
+            form.find('select[name="section_id"]:selected').text($(this).data('section_name'));
+
+            let $section_name = $(this).data('section_name'),
+                $select_sections = Object.entries(form.find('select[name="section_id"]').find('option')),
+                section_id = $(this).data('section_id');
+
+                // change the text of select2 with section name of product
+                $select_sections.forEach(function(el){
+                    if(el[0]==section_id){
+
+                        let select_container = $('#select2-section_id-container');
+
+                        select_container.attr('title' ,el[1].text).text(el[1].text);
+                    }
+                })
+
+
+
             form.find('textarea[name="note"]').text($(this).data('description'));
         });
 
@@ -326,9 +342,6 @@
             form.attr('action', $(this).data('url'));
             console.log(form.attr('action'));
         });
-
-        // select2 plugin
-        $('.select2').select2();
         
     })
 </script>

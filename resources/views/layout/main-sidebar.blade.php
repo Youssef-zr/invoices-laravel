@@ -30,7 +30,7 @@
 					<li class="slide">
 						<a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}"><i class="fa fa-th-list text-dark fa-1x"></i> <span class="side-menu__label mr-1">الفواتير</span><i class="angle fe fe-chevron-down"></i></a>
 						<ul class="slide-menu">
-							<li><a class="slide-item" href="{{ url('/' . $page='chart-morris') }}">قائمة الفواتير</a></li>
+							<li><a class="slide-item" href="{{ url('/' . $page='admin/invoices') }}">قائمة الفواتير</a></li>
 							<li><a class="slide-item" href="{{ url('/' . $page='chart-flot') }}">فواتير مدفوعة</a></li>
 							<li><a class="slide-item" href="{{ url('/' . $page='chart-chartjs') }}">فواتير مدفوعة جزئيا</a></li>
 							<li><a class="slide-item" href="{{ url('/' . $page='chart-echart') }}">فواتير غير مدفوعة</a></li>

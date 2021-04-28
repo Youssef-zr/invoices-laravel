@@ -46,7 +46,7 @@
             "order": [[ 0, 'desc' ]],
             "aLengthMenu": [
                 [5, 10, 25, -1],
-                [5, 10, 25, "All"]
+                [5, 10, 25, "الكل"]
             ],
             "oLanguage": {"sUrl": "{{ url('js/datatables_ar.json') }}"}
         });
@@ -57,6 +57,9 @@
             $datatable_length.select2()
         }, 1000);
 
+        // select2 plugin
+        $('.select2').select2();
+    
     });
 </script>
 <!--External  Datepicker js -->
