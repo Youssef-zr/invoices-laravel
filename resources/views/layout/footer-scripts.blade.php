@@ -2,10 +2,12 @@
 <a href="#top" id="back-to-top"><i class="las la-angle-double-up"></i></a>
 <!-- JQuery min js -->
 {{-- <script src="{{url('assets/plugins/jquery/jquery.min.js')}}"></script> --}}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script src="{{ url('assets/plugins/jquery/jquery.min.js')}} "></script>
 
 {{-- select 2 --}}
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
+<script src="{{ url("assets/plugins/select2/js/select2.min.js") }}"></script>
 
 <!-- Bootstrap Bundle js -->
 <script src="{{url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

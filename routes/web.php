@@ -34,6 +34,10 @@ Route::group(["prefix" => "admin", 'middleware' => "auth"], function () {
 
         return response()->json(['status' => 'ok', 'products' => $products]);
     });
+
+    Route::get('invoiceDetails/{id}','invoiceDetailsController@edit');
+    Route::delete('invoiceDetails/attachments/{invoice}/{file}','invoiceDetailsController@attachmentDelete');
+
 });
 
 Route::get('/logout', function () {

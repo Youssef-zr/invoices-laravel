@@ -340,7 +340,6 @@
         $('.delete-section').on("click", function () {
             let form = $('#modalDelete').find('form');
             form.attr('action', $(this).data('url'));
-            console.log(form.attr('action'));
         });
         
     })

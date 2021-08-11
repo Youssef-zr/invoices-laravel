@@ -232,6 +232,7 @@
         // get products of a section
         $('select[name="section_id"]').on('change',function(){
 
+            console.log('hds')
             let $section_id = $(this).val(),
                 product_select_box = $('select[name="product"]');
 

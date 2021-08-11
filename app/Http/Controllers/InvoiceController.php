@@ -20,7 +20,9 @@ class InvoiceController extends Controller
     public function index()
     {
         $title = 'الفواتير';
-        return view('admin.invoices.index', compact('title'));
+        $invoices = Invoice::orderBy('id','desc')->get();
+        
+        return view('admin.invoices.index', compact('title','invoices'));
     }
 
     /**
@@ -45,6 +47,7 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
 
+
         $ruels = [
             'invoice_number' => 'required|string|unique:invoices,invoice_number',
             'invoice_date' => 'required|string',
@@ -58,7 +61,7 @@ class InvoiceController extends Controller
             'value_vat' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'total' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'note' => 'nullable|string|max:500',
-            "attachments" => "nullable|image|mimes:pdf,jpg,jpeg,png,gif",
+            "attachments" => "nullable|mimes:pdf,jpg,jpeg,png,gif",
         ];
 
         $niceNames = [
@@ -112,18 +115,19 @@ class InvoiceController extends Controller
         // add attachments pdf/image
         if ($request->hasFile('attachments')) {
 
-            $image = $request->file('attachments');
+            $image = $request->File('attachments');
             $file_name = Carbon::now()->timestamp . '-' . $image->getClientOriginalName();
 
             // store file in directory (storage/images)
-            $path = $image->move('storage/images/', $file_name);
-
+           $image->move(public_path('Attachments/'.$invoice->invoice_number.'/'), $file_name);
+            
             $Attachment = new Attachment();
             $Attachment->invoice_id = $invoice->id;
-            $Attachment->file_name = $path;
+            $Attachment->file_name = $file_name;
             $Attachment->invoice_number = $invoice->invoice_number;
             $Attachment->create_by = $invoice->user;
             $Attachment->save();
+
         }
 
         $request->session()->flash('msgSuccess', 'تم اضافة الفاتورة بنجاح');
