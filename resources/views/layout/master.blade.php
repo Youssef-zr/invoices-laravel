@@ -32,4 +32,20 @@
 				{{-- Noty Flash Messages --}}
 				@include('_partial._messages')
 	</body>
+	
+	{{-- use this script to reafresh notification in side bar --}}
+	<script>
+		$(()=>{
+			setInterval(() => {
+				// refresh div to get the new notifications and his count
+				let $nb_notifications=$('#unreadNotification_count'),
+				    $notifications=$('#unreadNotifications');
+					
+				$nb_notifications.load(window.location.href+' #unreadNotification_count');
+				$notifications.load(window.location.href+' #unreadNotifications');
+
+			}, 250000);
+		})
+	</script>
+
 </html>

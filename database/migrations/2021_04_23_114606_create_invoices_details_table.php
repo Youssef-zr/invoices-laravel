@@ -21,6 +21,7 @@ class CreateInvoicesDetailsTable extends Migration
             $table->integer('value_status');
             $table->text('note')->nullable();
             $table->string('user', 50);
+            $table->date('payment_date')->nullable();
             
             $table->bigInteger('section_id')->unsigned();
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');

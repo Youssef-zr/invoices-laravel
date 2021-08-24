@@ -45,5 +45,9 @@ class CreateInvoicesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('invoices');
+
+        Schema::table('invoices', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 }

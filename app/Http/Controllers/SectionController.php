@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class SectionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:الأقسام', ['only' => 'index']);
+
+        $this->middleware('permission:اضافة قسم', ['only' => 'store']);
+        $this->middleware('permission:تعديل قسم', ['only' => 'update']);
+        $this->middleware('permission:حذف قسم', ['only' => 'destroy']);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -20,15 +29,6 @@ class SectionController extends Controller
         return view('admin.sections.index', compact('title', 'sections'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -61,27 +61,6 @@ class SectionController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Section  $section
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Section $section)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Section  $section
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Section $section)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

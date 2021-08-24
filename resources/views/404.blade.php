@@ -1,4 +1,4 @@
-@extends('layouts.master2')
+@extends('layout.master')
 @section('css')
 <!--- Internal Fontawesome css-->
 <link href="{{URL::asset('assets/plugins/fontawesome-free/css/all.min.css')}}" rel="stylesheet">

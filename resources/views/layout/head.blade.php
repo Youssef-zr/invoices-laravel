@@ -17,6 +17,7 @@
 <!-- Sidemenu css -->
 <link rel="stylesheet" href="{{url('assets/css-rtl/sidemenu.css')}}">
 @yield('css')
+@stack('css')
 <!--- Style css -->
 <link href="{{url('assets/css-rtl/style.css')}}" rel="stylesheet">
 <!--- Dark-mode css -->
@@ -27,6 +28,7 @@
 {{-- noty plugin --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script> 
+
 
 {{-- select2 --}}
 {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}

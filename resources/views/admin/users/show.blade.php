@@ -15,7 +15,7 @@
 @section('content')
             <!-- row -->
             <div class="row">
-
+                users show user
             </div>
             <!-- row closed -->
         </div>

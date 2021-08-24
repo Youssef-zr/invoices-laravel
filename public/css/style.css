@@ -18,8 +18,7 @@
     width: 65px !important;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
     background: #0162e8 !important;
     color: #fff !important;
     border-radius: 5px;
@@ -34,14 +33,25 @@
     z-index: 99999;
 }
 
-.is-expanded,
-.slide.active {
+.is-expanded, .slide.active {
     color: #0162e8 !important;
 }
 
-.is-expanded .side-menu__item,
-.is-expanded .side-menu__item .fa,
-.slide.active .side-menu__item,
-.slide.active .side-menu__item .fa {
+.is-expanded .side-menu__item, .is-expanded .side-menu__item .fa, .slide.active .side-menu__item, .slide.active .side-menu__item .fa {
     color: inherit !important;
+}
+
+.new .badge {
+    position: absolute;
+    right: 0;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    padding: 0 !important;
+    line-height: 20px;
+    top: 0;
+}
+
+.chat-scroll, .Notification-scroll {
+    overflow-y: scroll !important;
 }

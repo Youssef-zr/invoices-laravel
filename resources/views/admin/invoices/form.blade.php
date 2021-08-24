@@ -3,7 +3,14 @@
     <div class="col-md-4">
         <div class="form-group {{$errors->has('invoice_number') ? 'has-error' : ''}}">
             {!! Form::label('invoice_number', 'رقم الفاتورة :', ['class'=>'form-label']) !!}
-            {!! Form::text('invoice_number', old('invoice_number'), ['class'=>'form-control',"placeholder"=>"رقم الفاتورة"]) !!}
+
+            @if (isset($editMode))
+                {{-- show field and disabled writing in the edit mode --}}
+                {!! Form::text('invoice_number', old('invoice_number'), ['class'=>'form-control',"placeholder"=>"رقم الفاتورة","disabled"]) !!}
+            @else
+                {{-- show field in the create mode --}}
+                {!! Form::text('invoice_number', old('invoice_number'), ['class'=>'form-control',"placeholder"=>"رقم الفاتورة"]) !!}
+            @endif
 
             @if ($errors->has('invoice_number'))
             <span class="help-block">
@@ -16,7 +23,7 @@
     <div class="col-md-4">
         <div class="form-group {{$errors->has('invoice_date') ? 'has-error' : ''}}">
             {!! Form::label('invoice_date', 'تاريخ الفاتورة :', ['class'=>'form-label']) !!}
-            {!! Form::date('invoice_date', old('invoice_date'), ['class'=>'form-control',"placeholder"=>"تاريخ الفاتورة"]) !!}
+            {!! Form::date('invoice_date',old('invoice_date'), ['class'=>'form-control',"placeholder"=>"تاريخ الفاتورة"]) !!}
             @if ($errors->has('invoice_date'))
             <span class="help-block">
                 <strong>{{$errors->first('invoice_date')}}</strong>
@@ -28,7 +35,7 @@
     <div class="col-md-4">
         <div class="form-group {{$errors->has('due_date') ? 'has-error' : ''}}">
             {!! Form::label('due_date', 'تاريخ الاستحقاق :', ['class'=>'form-label']) !!}
-            {!! Form::date('due_date', old('invoice_date'), ['class'=>'form-control',"placeholder"=>"تاريخ الاستحقاق"]) !!}
+            {!! Form::date('due_date', old('due_date'), ['class'=>'form-control',"placeholder"=>"تاريخ الاستحقاق"]) !!}
             @if ($errors->has('due_date'))
             <span class="help-block">
                 <strong>{{$errors->first('due_date')}}</strong>
@@ -57,7 +64,16 @@
     <div class="col-md-4">
         <div class="form-group {{$errors->has('product') ? 'has-error' : ''}}">
             {!! Form::label('product', 'المنتج :', ['class'=>'form-label']) !!}
-            {!! Form::select('product', [],null, ['class'=>'form-control select2',"placeholder"=>"المنتج"]) !!}
+
+            @if (isset($editMode))
+                {{-- show value in edit mode --}}
+                {!! product_selected($products,$invoice->product) !!}
+                {{-- {!! Form::select('product', product_selected($products,$invoice->product),$invoice->product, ['class'=>'form-control select2',"placeholder"=>"المنتج"]) !!} --}}
+            @else
+                {{-- show value 0 in add mode --}}
+                {!! Form::select('product', [],null, ['class'=>'form-control select2',"placeholder"=>"المنتج"]) !!}
+            @endif
+
             @if ($errors->has('product'))
             <span class="help-block">
                 <strong>{{$errors->first('product')}}</strong>
@@ -86,7 +102,7 @@
     <div class="col-md-4">
         <div class="form-group {{$errors->has('amount_commission') ? 'has-error' : ''}}">
             {!! Form::label('amount_commission', 'مبلغ العمولة :', ['class'=>'form-label']) !!}
-            {!! Form::text('amount_commission', old('amount-val'), ['class'=>'form-control',"placeholder"=>"(مبلغ العمولة (000000:00"]) !!}
+            {!! Form::text('amount_commission', old('amount_commission'), ['class'=>'form-control',"placeholder"=>"(مبلغ العمولة (000000:00"]) !!}
 
             @if ($errors->has('amount_commission'))
             <span class="help-block">
@@ -129,7 +145,14 @@
     <div class="col-md-6">
         <div class="form-group {{$errors->has('value_vat') ? 'has-error' : ''}}">
             {!! Form::label('value_vat', 'قيمة ضريبة القيمة المضافة:', ['class'=>'form-label']) !!}
-            {!! Form::text('value_vat', 0, ['class'=>'form-control',"placeholder"=>"قيمة ضريبة القيمة المضافة","readonly"=>"readonly"]) !!}
+
+            @if (isset($editMode))
+                {{-- show value in edit mode --}}
+                {!! Form::text('value_vat', old('value_vat'), ['class'=>'form-control',"placeholder"=>"قيمة ضريبة القيمة المضافة","readonly"=>"readonly"]) !!}
+                @else
+                {{-- show value 0 in add mode --}}
+                {!! Form::text('value_vat', 0, ['class'=>'form-control',"placeholder"=>"قيمة ضريبة القيمة المضافة","readonly"=>"readonly"]) !!}
+            @endif
 
             @if ($errors->has('value_vat'))
             <span class="help-block">
@@ -142,7 +165,14 @@
     <div class="col-md-6">
         <div class="form-group {{$errors->has('total') ? 'has-error' : ''}}">
             {!! Form::label('total', 'الاجمالي شامل الضريبة:', ['class'=>'form-label']) !!}
-            {!! Form::text('total', 0, ['class'=>'form-control',"placeholder"=>"الاجمالي شامل الضريبة","readonly"=>"readonly"]) !!}
+            
+            @if (isset($editMode))
+                {{-- show value in edit mode --}}
+                {!! Form::text('total', old('total'), ['class'=>'form-control',"placeholder"=>"الاجمالي شامل الضريبة","readonly"=>"readonly"]) !!}
+            @else
+                {{-- show value 0 in add mode --}}
+                {!! Form::text('total', 0, ['class'=>'form-control',"placeholder"=>"الاجمالي شامل الضريبة","readonly"=>"readonly"]) !!}
+            @endif
 
             @if ($errors->has('total'))
             <span class="help-block">
@@ -151,6 +181,38 @@
             @endif
         </div>
     </div>
+
+    {{-- show field status of invoice in edit mode only --}}
+    @if (isset($editMode))
+         {{-- invoice status field --}}
+        <div class="col-md-4 col-lg-3">
+            <div class="form-group {{$errors->has('value_status') ? 'has-error' : ''}}">
+                {!! Form::label('value_status', 'الحالة :', ['class'=>'form-label']) !!}
+                {!! Form::select('value_status', invoice_status(),old("value_status"), ['class'=>'form-control select2']) !!}
+
+                @if ($errors->has('value_status'))
+                <span class="help-block">
+                    <strong>{{$errors->first('value_status')}}</strong>
+                </span>
+                @endif
+            </div>
+        </div>
+         {{-- invoice Payment date --}}
+        <div class="col-md-4 col-lg-3">
+            <div class="form-group {{$errors->has('payment_date') ? 'has-error' : ''}}">
+                {!! Form::label('payment_date', 'تاريخ الدفع :', ['class'=>'form-label']) !!}
+                {!! Form::date("payment_date", old('payment_date'), ['class'=>"form-control"]) !!}
+
+                @if ($errors->has('payment_date'))
+                <span class="help-block">
+                    <strong>{{$errors->first('payment_date')}}</strong>
+                </span>
+                @endif
+            </div>
+        </div>
+    @endif
+    {{-- ---------------------------------------------- --}}
+     
     {{-- invoice note due field --}}
     <div class="col-md-12">
         <div class="form-group {{$errors->has('note') ? 'has-error' : ''}}">
@@ -167,17 +229,20 @@
 </div>
 {{-- End row --}}
 
+{{-- show attachment in add mode only --}}
+@if (!isset($editMode))
+    
 <div class="row">
     <div class="col-md-12">
-        <div class="form-group {{$errors->has('attachments') ? 'has-error' : ''}}">
-            {!! Form::label('', '* صيغة المرفق pdf , jpeg , jpg , gif , png', ['class'=>'form-label text-danger']) !!}
-            {!! Form::label('attachments', 'المرفقات:', ['class'=>'form-label']) !!}
-         
-            {!! Form::file('attachments', ['class'=>'form-control dropify',"placeholder"=>"المرفقات",'rows'=>'5',
-                                            "multiple"=>'multiple',"data-max-file-size"=>"3M", "data-show-errors"=>"true", 
-                                            "data-allowed-file-extensions"=>"pdf png jpg jpeg gif",
-            ]) !!}
-        
+            <div class="form-group {{$errors->has('attachments') ? 'has-error' : ''}}">
+                {!! Form::label('', '* صيغة المرفق pdf , jpeg , jpg , gif , png', ['class'=>'form-label text-danger']) !!}
+                {!! Form::label('attachments', 'المرفقات:', ['class'=>'form-label']) !!}
+                
+                {!! Form::file('attachments', ['class'=>'form-control dropify',"placeholder"=>"المرفقات",'rows'=>'5',
+                                                "multiple"=>'multiple',"data-max-file-size"=>"3M", "data-show-errors"=>"true", 
+                                                "data-allowed-file-extensions"=>"pdf png jpg jpeg gif",
+                ]) !!}
+            
             @if ($errors->has('attachments'))
             <span class="help-block">
                 <strong>{{$errors->first('attachments')}}</strong>
@@ -187,6 +252,7 @@
     </div>
 </div>
 {{-- End row --}}
+@endif
 
 <div class="row justify-content-center">
     <div class="col-md-2">
@@ -232,7 +298,6 @@
         // get products of a section
         $('select[name="section_id"]').on('change',function(){
 
-            console.log('hds')
             let $section_id = $(this).val(),
                 product_select_box = $('select[name="product"]');
 
@@ -307,15 +372,25 @@
             calc_commision();
         })
 
-        // get current date in filed invoice date
-        Date.prototype.toDateInputValue = (function() {
-            var local = new Date(this);
-            local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-            return local.toJSON().slice(0,10);
-        });
-
-        $('#invoice_date').val(new Date().toDateInputValue());
         
     })
 </script>
+
+{{-- get current date invoice add --}}
+@if (!isset($editMode))
+    <script>
+        $(()=>{
+
+            // get current date in filed invoice date
+            Date.prototype.toDateInputValue = (function() {
+                var local = new Date(this);
+                local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+                return local.toJSON().slice(0,10);
+            });
+
+            $('#invoice_date').val(new Date().toDateInputValue());
+        })
+    </script>
+@endif
+
 @stop
